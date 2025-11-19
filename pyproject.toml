@@ -1,23 +1,28 @@
 [build-system]
 requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
 
 [project]
 name = "bsort"
 version = "0.1.0"
-description = "Bottle cap color detection pipeline"
+description = "Bottle cap detector ML pipeline"
+authors = [
+  { name="Your Name", email="your.email@example.com" }
+]
+readme = "README.md"
+requires-python = ">=3.9"
 dependencies = [
     "ultralytics",
     "opencv-python",
     "pyyaml",
     "wandb",
-    "click",
-    "pytest",
+    "pydantic",
 ]
 
-# ENGINE FIXES
-[tool.setuptools]
-packages = ["bsort"]   # <- Only include the bsort directory as package
-
 [project.scripts]
-bsort = "bsort.cli:main"
+bsort = "bsort.cli:app"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
