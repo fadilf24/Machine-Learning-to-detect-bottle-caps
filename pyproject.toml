@@ -15,5 +15,9 @@ dependencies = [
     "pytest",
 ]
 
+# ENGINE FIXES
+[tool.setuptools]
+packages = ["bsort"]   # <- Only include the bsort directory as package
+
 [project.scripts]
 bsort = "bsort.cli:main"
