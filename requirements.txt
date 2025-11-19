@@ -1,0 +1,11 @@
+ultralytics>=8.2.0
+opencv-python>=4.7
+pyyaml>=6.0
+pydantic>=1.10
+typer>=0.9
+wandb>=0.15.0
+matplotlib>=3.5
+pytest>=7.0
+black>=22.0
+isort>=5.10
+pylint>=2.13
