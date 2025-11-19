@@ -1,24 +1,24 @@
-import typer
-from .train import run_train
-from .infer import run_inference
+import click
+from bsort.train import train_model
+from bsort.infer import run_inference
+from bsort.config import load_config
 
-app = typer.Typer(help="Bottle cap detector CLI")
+@click.group()
+def main():
+    """bsort CLI for training and inference."""
+    pass
 
-
-@app.command()
+@main.command()
+@click.option("--config", required=True, help="Path to YAML config.")
 def train(config: str):
-    """Train YOLO model using settings.yaml."""
-    typer.echo(f"Training model with config: {config}")
-    run_train(config)
+    """Train YOLO model."""
+    cfg = load_config(config)
+    train_model(cfg)
 
-
-@app.command()
+@main.command()
+@click.option("--config", required=True)
+@click.option("--image", required=True)
 def infer(config: str, image: str):
-    """Run inference on a single image."""
-    typer.echo("Running inference...")
-    results = run_inference(config, image)
-    results[0].show()
-
-
-if __name__ == "__main__":
-    app()
+    """Run inference on an image."""
+    cfg = load_config(config)
+    run_inference(cfg, image)
