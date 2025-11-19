@@ -1,28 +1,32 @@
-- name: Set up Python
-  uses: actions/setup-python@v4
-  with:
-    python-version: "3.10"
+name: CI
 
-- name: Install dependencies
-  run: |
-    pip install -e .
-    pip install black isort pylint pytest "black[jupyter]"
+on:
+  push:
+  pull_request:
 
-# FIX: auto-format before checking
-- name: Format code
-  run: |
-    black .
-    isort .
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-# Optional: verify format
-- name: Run black check
-  run: black --check .
+    steps:
+    - uses: actions/checkout@v3
 
-- name: Lint
-  run: pylint bsort
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
 
-- name: Run tests
-  run: pytest -q
+    - name: Install dependencies
+      run: pip install -e . black isort pylint pytest
 
-- name: Build Docker image
-  run: docker build -t bsort:latest .
+    - name: Run linters
+      run: |
+        black --check .
+        isort --check-only .
+        pylint bsort
+
+    - name: Run tests
+      run: pytest -q
+
+    - name: Build Docker
+      run: docker build -t bsort:latest .
