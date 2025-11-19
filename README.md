@@ -1,12 +1,12 @@
 # Machine-Learning-to-detect-bottle-caps
-Project ini merupakan implementasi end-to-end Machine Learning Pipeline untuk mendeteksi warna tutup botol (light blue, dark blue, others) menggunakan YOLOv8, Python CLI, CI/CD, Docker, dan konfigurasi YAML.
-
-#Fitur Utama
-
-1. Model Training & Inference melalui CLI:
-bsort train --config settings.yaml
-bsort infer --config settings.yaml --image sample.jpg
-2. Tracking eksperimen menggunakan Weights & Biases (wandb)
-3. CI/CD GitHub Actions (linting, formatting, unit tests, Docker build)
-4. Konfigurasi fleksibel melalui settings.yaml
-4. Struktur modular untuk memudahkan pengembangan
+bsort – Bottle Cap Color Detection ML Pipeline
+# Project Summary
+bsort adalah sebuah ML pipeline end-to-end untuk mendeteksi warna tutup botol (light blue, dark blue, others) menggunakan YOLOv8.
+1. Project ini mencakup:
+2. Training model menggunakan YOLOv8
+3. Tracking training menggunakan Weights & Biases (wandb)
+4. Python CLI (bsort) untuk training & inference
+5. Config file (settings.yaml) untuk parameter model
+6. Pipeline CI/CD (linting → test → docker build)
+7. Docker-ready
+8. Notebook interaktif untuk Task 2
