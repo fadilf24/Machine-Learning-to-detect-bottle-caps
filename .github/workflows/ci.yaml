@@ -1,7 +1,8 @@
-name: CI
+name: CI Pipeline
 
 on:
   push:
+    branches: ["main"]
   pull_request:
 
 jobs:
@@ -9,24 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.10"
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
 
-    - name: Install dependencies
-      run: pip install -e . black isort pylint pytest
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install black isort pylint pytest
 
-    - name: Run linters
-      run: |
-        black --check .
-        isort --check-only .
-        pylint bsort
+      - name: Code Format Check (Black)
+        run: black --check .
 
-    - name: Run tests
-      run: pytest -q
+      - name: Import Sort Check (isort)
+        run: isort --check-only .
 
-    - name: Build Docker
-      run: docker build -t bsort:latest .
+      - name: Lint (pylint)
+        run: pylint bsort/
+
+      - name: Run Tests
+        run: pytest -q
+
+      - name: Build Docker Image
+        run: docker build -t bottlecap-detector .
